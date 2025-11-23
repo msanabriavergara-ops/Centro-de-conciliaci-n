@@ -1,0 +1,271 @@
+/*
+  Centro de conciliación y arbitraje "Edgardo Villamil Portilla"
+  Single-file React component (export default) — listo para pegar en un proyecto Vite/Create React App.
+
+  Instrucciones rápidas:
+  1) Este archivo asume que tienes Tailwind CSS configurado en tu proyecto.
+  2) Cópialo en src/App.jsx y arranca tu dev server (npm run dev / npm start).
+  3) Reemplaza los datos de contacto (teléfono, email, dirección) por los reales.
+
+  Características incluidas:
+  - Navegación responsive
+  - Secciones: Inicio, Servicios, Nosotros, Conciliadores/Árbitros, Contacto
+  - Formulario de contacto con validación simple y mensaje de éxito
+  - Enlaces a WhatsApp y mapa de Google
+  - Texto en español, tono accesible para el público general
+*/
+
+import React, { useState } from "react";
+
+export default function App() {
+  const [form, setForm] = useState({ nombre: "", email: "", asunto: "", mensaje: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const servicios = [
+    {
+      title: "Conciliación extrajudicial",
+      desc: "Proceso ágil y amigable para resolver conflictos sin ir a juicio. Ideal para temas familiares, comerciales y laborales.",
+    },
+    {
+      title: "Arbitraje comercial",
+      desc: "Solución privada y técnica para disputas contractuales entre empresas y comercios.",
+    },
+    {
+      title: "Mediación especializada",
+      desc: "Mediadores formados para facilitar el diálogo en casos complejos y emocionales.",
+    },
+    {
+      title: "Capacitación y talleres",
+      desc: "Programas de formación en métodos alternativos de solución de conflictos para organizaciones y público en general.",
+    },
+  ];
+
+  const conciliadores = [
+    {
+      nombre: "Dra. Catalina Márquez",
+      perfil: "Conciliadora experta en derecho de familia con 10 años de experiencia.",
+    },
+    {
+      nombre: "Mg. Andrés Ríos",
+      perfil: "Árbitro en derecho comercial y resolución de disputas empresariales.",
+    },
+    {
+      nombre: "Abg. Laura Pineda",
+      perfil: "Mediadora con enfoque restaurativo y experiencia en servicios públicos.",
+    },
+  ];
+
+  function handleChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function validateEmail(email) {
+    return /^\S+@\S+\.\S+$/.test(email);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
+
+    if (!form.nombre || !form.email || !form.mensaje) {
+      setError("Por favor completa tu nombre, correo y mensaje.");
+      return;
+    }
+    if (!validateEmail(form.email)) {
+      setError("Por favor ingresa un correo válido.");
+      return;
+    }
+
+    // Simular envío — en producción conectar a API o servicio de emails
+    setTimeout(() => {
+      setSuccess("Gracias, tu mensaje ha sido enviado. Te contactaremos pronto.");
+      setForm({ nombre: "", email: "", asunto: "", mensaje: "" });
+    }, 600);
+  }
+
+  return (
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      <header className="bg-white shadow">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center gap-3">
+              <div className="rounded-full bg-indigo-600 text-white w-12 h-12 flex items-center justify-center font-bold">EV</div>
+              <div>
+                <h1 className="text-lg font-semibold">Centro Edgardo Villamil Portilla</h1>
+                <p className="text-sm text-gray-500">Conciliación · Arbitraje · Mediación — Bogotá, Colombia</p>
+              </div>
+            </div>
+
+            <nav className="hidden md:flex gap-6 items-center text-sm">
+              <a href="#inicio" className="hover:underline">Inicio</a>
+              <a href="#servicios" className="hover:underline">Servicios</a>
+              <a href="#nosotros" className="hover:underline">Nosotros</a>
+              <a href="#equipo" className="hover:underline">Conciliadores</a>
+              <a href="#contacto" className="bg-indigo-600 text-white px-4 py-2 rounded-md">Contacto</a>
+            </nav>
+
+            <button
+              className="md:hidden p-2 rounded-md bg-gray-100"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Abrir menú"
+            >
+              ☰
+            </button>
+          </div>
+
+          {mobileOpen && (
+            <div className="md:hidden pb-4">
+              <a href="#inicio" className="block py-2">Inicio</a>
+              <a href="#servicios" className="block py-2">Servicios</a>
+              <a href="#nosotros" className="block py-2">Nosotros</a>
+              <a href="#equipo" className="block py-2">Conciliadores</a>
+              <a href="#contacto" className="block py-2">Contacto</a>
+            </div>
+          )}
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <section id="inicio" className="grid gap-8 md:grid-cols-2 items-center">
+          <div>
+            <h2 className="text-3xl font-extrabold">Soluciones pacíficas y rápidas para tus conflictos</h2>
+            <p className="mt-4 text-gray-700">En el <strong>Centro Edgardo Villamil Portilla</strong> ayudamos a personas y empresas a resolver disputas de manera efectiva, confidencial y más económica que un proceso judicial.</p>
+
+            <ul className="mt-6 space-y-3">
+              <li className="flex items-start gap-3">
+                <span className="font-bold">✓</span>
+                <span>Atención clara y cercana para todas las personas.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="font-bold">✓</span>
+                <span>Procesos rápidos: conciliación, mediación y arbitraje.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="font-bold">✓</span>
+                <span>Horarios flexibles y atención en Bogotá.</span>
+              </li>
+            </ul>
+
+            <div className="mt-6 flex gap-3">
+              <a href="#contacto" className="inline-block bg-indigo-600 text-white px-5 py-3 rounded-md">Solicitar audiencia</a>
+              <a href="https://wa.me/57XXXXXXXXXX" target="_blank" rel="noreferrer" className="inline-block border border-indigo-600 px-5 py-3 rounded-md">Chatear por WhatsApp</a>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="font-semibold">¿Tienes una disputa?</h3>
+            <p className="text-sm text-gray-600 mt-2">Cuéntanos brevemente lo que sucede y te orientamos sobre la mejor vía (conciliación, mediación o arbitraje).</p>
+
+            <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+              <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" className="w-full border rounded px-3 py-2" />
+              <input name="email" value={form.email} onChange={handleChange} placeholder="Tu correo" className="w-full border rounded px-3 py-2" />
+              <input name="asunto" value={form.asunto} onChange={handleChange} placeholder="Asunto (opcional)" className="w-full border rounded px-3 py-2" />
+              <textarea name="mensaje" value={form.mensaje} onChange={handleChange} placeholder="Cuéntanos lo que pasó" className="w-full border rounded px-3 py-2 h-24" />
+
+              {error && <p className="text-sm text-red-600">{error}</p>}
+              {success && <p className="text-sm text-green-600">{success}</p>}
+
+              <div className="flex gap-2">
+                <button className="bg-indigo-600 text-white px-4 py-2 rounded">Enviar mensaje</button>
+                <a href="mailto:contacto@centroedgardovillamil.com" className="px-4 py-2 border rounded">Enviar email</a>
+              </div>
+            </form>
+
+            <div className="mt-6 text-sm text-gray-600">
+              <p><strong>Dirección:</strong> Bogotá D.C. — Reemplaza con la dirección exacta</p>
+              <p className="mt-1"><strong>Horario:</strong> Lun-Vie 8:30–17:30</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="servicios" className="mt-16">
+          <h3 className="text-2xl font-bold">Nuestros servicios</h3>
+          <p className="text-gray-700 mt-2">Ofrecemos servicios adaptados a tus necesidades. Explicación clara y en lenguaje sencillo:</p>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {servicios.map((s) => (
+              <div key={s.title} className="bg-white p-4 rounded-lg shadow">
+                <h4 className="font-semibold">{s.title}</h4>
+                <p className="text-sm text-gray-600 mt-2">{s.desc}</p>
+                <button className="mt-4 text-sm text-indigo-600">Solicitar</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="nosotros" className="mt-16 bg-white p-6 rounded-lg shadow">
+          <h3 className="text-2xl font-bold">Nosotros</h3>
+          <p className="mt-3 text-gray-700">El Centro Edgardo Villamil Portilla nace con el propósito de ofrecer procesos de solución pacífica y técnica a conflictos, combinando experiencia legal con una atención humana y accesible para todas las personas.</p>
+
+          <div className="mt-6 grid md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-semibold">Misión</h4>
+              <p className="text-sm text-gray-600 mt-1">Facilitar acuerdos justos y duraderos mediante métodos alternativos de solución de conflictos, con respeto y confidencialidad.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold">Visión</h4>
+              <p className="text-sm text-gray-600 mt-1">Ser referencia en Bogotá por la calidad, accesibilidad y profesionalismo en conciliación y arbitraje.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="equipo" className="mt-16">
+          <h3 className="text-2xl font-bold">Conciliadores y árbitros</h3>
+          <p className="text-gray-700 mt-2">Profesionales con formación jurídica y amplia experiencia práctica.</p>
+
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {conciliadores.map((c) => (
+              <div key={c.nombre} className="bg-white p-4 rounded-lg shadow text-center">
+                <div className="w-24 h-24 rounded-full bg-gray-200 mx-auto flex items-center justify-center text-xl font-semibold">{c.nombre.split(" ").map(n=>n[0]).slice(0,2).join("")}</div>
+                <h4 className="mt-3 font-semibold">{c.nombre}</h4>
+                <p className="text-sm text-gray-600 mt-1">{c.perfil}</p>
+                <button className="mt-3 text-sm text-indigo-600">Ver perfil</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="contacto" className="mt-16 bg-white p-6 rounded-lg shadow">
+          <h3 className="text-2xl font-bold">Contacto</h3>
+          <p className="mt-2 text-gray-700">Estamos para orientarte. Elige la vía que prefieras:</p>
+
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-semibold">Teléfono y WhatsApp</h4>
+              <p className="text-sm text-gray-600 mt-1">+57 3XX XXX XXXX (reemplaza con tu número)</p>
+
+              <h4 className="mt-4 font-semibold">Correo</h4>
+              <p className="text-sm text-gray-600 mt-1">contacto@centroedgardovillamil.com</p>
+
+              <h4 className="mt-4 font-semibold">Visítanos</h4>
+              <p className="text-sm text-gray-600 mt-1">Bogotá D.C. — <a href="https://www.google.com/maps/search/Bogot%C3%A1+Colombia" target="_blank" rel="noreferrer" className="text-indigo-600">Ver en mapa</a></p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold">Formulario rápido</h4>
+              <form onSubmit={handleSubmit} className="mt-3 space-y-3">
+                <input name="nombre" value={form.nombre} onChange={handleChange} placeholder="Tu nombre" className="w-full border rounded px-3 py-2" />
+                <input name="email" value={form.email} onChange={handleChange} placeholder="Tu correo" className="w-full border rounded px-3 py-2" />
+                <textarea name="mensaje" value={form.mensaje} onChange={handleChange} placeholder="Descripción breve" className="w-full border rounded px-3 py-2 h-24" />
+                {error && <p className="text-sm text-red-600">{error}</p>}
+                {success && <p className="text-sm text-green-600">{success}</p>}
+                <div className="flex gap-2">
+                  <button className="bg-indigo-600 text-white px-4 py-2 rounded">Enviar</button>
+                  <a href="https://wa.me/57XXXXXXXXXX?text=Hola%20Centro%20Edgardo%20Villamil%20Portilla%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noreferrer" className="px-4 py-2 border rounded">WhatsApp</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <footer className="mt-16 text-center text-sm text-gray-600">
+          <p>© {new Date().getFullYear()} Centro Edgardo Villamil Portilla — Todos los derechos reservados.</p>
+          <p className="mt-2">Este sitio ofrece información general y no constituye asesoría legal. Para asesoría personalizada, solicita una cita.</p>
+        </footer>
+      </main>
+    </div>
+  );
+}
