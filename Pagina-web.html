@@ -1,4 +1,36 @@
 /*
+  --- CONFIGURACIÓN DE TAILWIND CSS PARA ESTE PROYECTO ---
+  Para que este archivo funcione con Tailwind, agrega estos archivos en tu proyecto:
+
+  1) tailwind.config.js
+  -----------------------------------------
+  export default {
+    content: ["./index.html", "./src/**/*.{js,jsx}"],
+    theme: { extend: {} },
+    plugins: [],
+  }
+
+  2) postcss.config.js
+  -----------------------------------------
+  export default {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  }
+
+  3) En src/index.css agrega:
+  -----------------------------------------
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  Asegúrate de importar index.css en main.jsx:
+
+  import './index.css';
+
+  -----------------------------------------------------------
+*/
   Centro de conciliación y arbitraje "Edgardo Villamil Portilla"
   Single-file React component (export default) — listo para pegar en un proyecto Vite/Create React App.
 
